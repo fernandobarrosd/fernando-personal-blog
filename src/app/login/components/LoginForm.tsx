@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { FormField } from "./FormField";
-import { executeLoginAction } from "../loginAction";
+import { executeLoginAction } from "../actions";
 import { useState } from "react";
 
 const loginSchema = z.object({

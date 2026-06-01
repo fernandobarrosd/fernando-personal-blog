@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { LogoutButton } from "./LogoutButton";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
+import Link from "next/link";
 
 const poppins = Poppins({
   weight: "500"
@@ -26,7 +27,19 @@ export async function Header() {
                     Fernando Personal Blog
                 </h1>
             </div>
-            { isAuthenticatedCookie ? <LogoutButton/> : <LoginLink/> }
+            <div className="flex gap-4">
+                { isAuthenticatedCookie && (
+                    <Link
+                    href="/create-post" 
+                    className="text-white
+                    p-2 bg-blue-900 rounded-md cursor-pointer
+                    text-sm text-center px-4">
+                        
+                        Criar post
+                    </Link>
+                ) }
+                { isAuthenticatedCookie ? <LogoutButton/> : <LoginLink/> }
+            </div>
         </header>
     )
 }
