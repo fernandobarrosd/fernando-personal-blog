@@ -4,15 +4,15 @@ import { LogoutButton } from "./LogoutButton";
 import Image from "next/image";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
+import { Suspense } from "react";
+import { CreatePostLink } from "./CreatePostLink";
+import { AuthenticationButton } from "./AuthenticationButton";
 
 const poppins = Poppins({
   weight: "500"
 })
 
 export async function Header() {
-    const cookiesStore = await cookies();
-    const isAuthenticatedCookie = cookiesStore.get("isAuthenticated");
-
     return (
         <header className="flex p-4 justify-between items-center">
             <div className="flex items-center gap-4">
@@ -28,17 +28,12 @@ export async function Header() {
                 </h1>
             </div>
             <div className="flex gap-4">
-                { isAuthenticatedCookie && (
-                    <Link
-                    href="/create-post" 
-                    className="text-white
-                    p-2 bg-blue-900 rounded-md cursor-pointer
-                    text-sm text-center px-4">
-                        
-                        Criar post
-                    </Link>
-                ) }
-                { isAuthenticatedCookie ? <LogoutButton/> : <LoginLink/> }
+                <Suspense>
+                    <CreatePostLink/>
+                </Suspense>
+                <Suspense>
+                    <AuthenticationButton/>
+                </Suspense>
             </div>
         </header>
     )

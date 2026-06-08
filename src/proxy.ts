@@ -15,12 +15,23 @@ const routes = [
         path: "/create-post",
         isPublic: false,
         redirect: true
+    },
+    {
+        path: /^\/posts\/[^/]+$/,
+        isPublic: true,
+        redirect: false
     }
 ] as const;
  
 export default async function proxy(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-    const route = routes.find(route => route.path == pathname);
+    console.log(pathname);
+    const route = routes.find(route => {
+        if (typeof route.path === "string") {
+            return route.path === pathname;
+        }
+        return route.path.test(pathname)
+    });
     const isAuthenticated = request.cookies.get("isAuthenticated");
 
     if (!isAuthenticated && route?.isPublic) {
