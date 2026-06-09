@@ -8,8 +8,8 @@ import { env } from "@/env";
 import { IS_AUTHENTICATED_COOKIE } from "@/constants";
 
 const loginActionSchema = z.object({
-    email: z.string().refine(email => email == env.ADMIN_EMAIL, { error: "Email is not admin" }),
-    password: z.string().refine(password => password == env.ADMIN_PASSWORD, { error: "Password is not admin" }),
+    email: z.string().refine(email => email == env.NEXT_PUBLIC_ADMIN_EMAIL, { error: "Email is not admin" }),
+    password: z.string().refine(password => password == env.NEXT_PUBLIC_ADMIN_PASSWORD, { error: "Password is not admin" }),
 });
 
 
