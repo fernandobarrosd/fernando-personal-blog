@@ -6,6 +6,7 @@ import z from "zod";
 import { FormField } from "./FormField";
 import { executeLoginAction } from "../actions";
 import { useState } from "react";
+import { Button } from "@/components/Button";
 
 const loginSchema = z.object({
     email: z.email({ error: "Email invalido" }),
@@ -52,11 +53,9 @@ export function LoginForm() {
                     {errorMessage}
                 </span>
             ) }
-            <button className="p-2 bg-blue-900
-            text-white w-50 rounded-md mt-10 cursor-pointer"
-            type="submit">
+            <Button className="w-50 mt-10" type="submit">
                 Entrar
-            </button>
+            </Button>
         </form>
     )
 }

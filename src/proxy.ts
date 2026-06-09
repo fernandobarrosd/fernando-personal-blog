@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse, ProxyConfig } from "next/server";
+import { IS_AUTHENTICATED_COOKIE } from "./constants";
 
 const routes = [
     {
@@ -17,7 +18,7 @@ const routes = [
         redirect: true
     },
     {
-        path: /^\/posts\/[^/]+$/,
+        path: /^\/[^/]+$/,
         isPublic: true,
         redirect: false
     }
@@ -25,14 +26,14 @@ const routes = [
  
 export default async function proxy(request: NextRequest) {
     const pathname = request.nextUrl.pathname;
-    console.log(pathname);
+    
     const route = routes.find(route => {
         if (typeof route.path === "string") {
             return route.path === pathname;
         }
         return route.path.test(pathname)
     });
-    const isAuthenticated = request.cookies.get("isAuthenticated");
+    const isAuthenticated = request.cookies.get(IS_AUTHENTICATED_COOKIE);
 
     if (!isAuthenticated && route?.isPublic) {
         return NextResponse.next();

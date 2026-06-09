@@ -1,10 +1,11 @@
 "use server";
 
-import { permanentRedirect, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 import { LoginSchema } from "./components/LoginForm";
 import { cookies } from "next/headers";
 import z from "zod";
 import { env } from "@/env";
+import { IS_AUTHENTICATED_COOKIE } from "@/constants";
 
 const loginActionSchema = z.object({
     email: z.string().refine(email => email == env.ADMIN_EMAIL, { error: "Email is not admin" }),
@@ -21,7 +22,7 @@ export async function executeLoginAction(loginSchema: LoginSchema) {
 
     const cookiesStore = await cookies();
 
-    cookiesStore.set("isAuthenticated", "true", {
+    cookiesStore.set(IS_AUTHENTICATED_COOKIE, "true", {
         httpOnly: true
     })
 

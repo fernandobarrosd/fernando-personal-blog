@@ -1,7 +1,7 @@
 import { prismaClient } from "@/lib/prismaClient";
 
 async function deleteSeed() {
-    await prismaClient.postLink.deleteMany();
+    console.log("Deletando dados...")
     await prismaClient.post.deleteMany();
 }
 

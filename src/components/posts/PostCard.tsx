@@ -1,36 +1,19 @@
 import Link from "next/link";
-import { DeleteIcon } from "../icons/DeleteIcon";
 import { Post } from "@/generated/prisma/client";
-import { prismaClient } from "@/lib/prismaClient";
-import { DeletePostButton } from "./DeletePostButton";
-import { updateTag } from "next/cache";
 import Image from "next/image";
+import { dateFormatter } from "@/utils/date-utils";
 
 type PostCardProps = {
     post: Post
 }
 
-const dateFormatter = new Intl.DateTimeFormat("pt-BR");
-
 export function PostCard({ post } : PostCardProps) {
-    
-    async function deletePost() {
-        "use server";
-        await prismaClient.post.delete({
-            where: {
-                id: post.id
-            }
-        })
-
-        updateTag("posts")
-    }
     return (
-        <li>
+        <li className="w-full">
                 <Link
-                href={`/posts/${post.slug}`}
+                href={`/${post.slug}`}
                 className="bg-blue-900 p-4
-                flex flex-col gap-2 text-sm rounded-md
-                max-w-[900] w-full">
+                flex flex-col gap-2 text-sm rounded-md">
                     <div className="flex items-center gap-4">
                         <Image
                         src="/github-profile.jpg"
@@ -46,7 +29,7 @@ export function PostCard({ post } : PostCardProps) {
                     <span className="text-white text-sm">
                         {dateFormatter.format(post.createdAt)}
                     </span>
-                    <div className="h-24">
+                    <div className="h-24 w-full">
                         <span className="text-ellipsis
                       text-white mt-4 line-clamp-4">
                             {post.content}

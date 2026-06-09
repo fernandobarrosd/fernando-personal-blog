@@ -1,23 +1,16 @@
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+"use client";
 
-export function LogoutButton() {
-    async function logoutAction() {
-        "use server";
+type LogoutButtonProps = {
+    onLogout: () => Promise<void>;
+}
 
-        const cookiesStore = await cookies();
-        cookiesStore.delete("isAuthenticated");
-
-        redirect("/login");
-
-    }
+export function LogoutButton({ onLogout } : LogoutButtonProps) {
     return (
-        <form action={logoutAction}>
-            <button className="text-white
+        <button className="text-white
             p-2 bg-blue-900 w-20 rounded-md cursor-pointer
-            text-sm text-center">
+            text-sm text-center"
+            onClick={onLogout}>
             Logout
-            </button>
-        </form>
+        </button>
     )
 }

@@ -1,0 +1,1 @@
+export const IS_AUTHENTICATED_COOKIE = "@fernando-personal-blog/is-authenticated";
