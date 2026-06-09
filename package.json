@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "seed:delete": "tsx prisma/delete-seed.ts",
-    "prod": "prisma migrate deploy && prisma generate && build"
+    "prod": "prisma migrate deploy && prisma generate && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
