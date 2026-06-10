@@ -36,6 +36,5 @@ export async function createPostAction({
     });
 
     updateTag("posts");
-
-    return null;
+    redirect("/");
 }
