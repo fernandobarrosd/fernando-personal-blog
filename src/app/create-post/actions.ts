@@ -14,6 +14,16 @@ type CreatePost = {
 export async function createPostAction({
     title, content, slug
 } : CreatePost) {
+    const post = await prismaClient.post.findUnique({
+        where: {
+            title
+        }
+    });
+
+    if (post) {
+        return "Já existe um post com esse titulo";
+    }
+
     await prismaClient.post.create({
         data: {
             id: randomUUID(),
@@ -25,5 +35,6 @@ export async function createPostAction({
     });
 
     updateTag("posts");
-    redirect("/");
+
+    return null;
 }

@@ -15,9 +15,9 @@ datasource db {
 
 model Post {
   id String @id @map("post_id")
-  title String @db.VarChar(255)
+  title String @db.VarChar(255) @unique
   slug String @unique @db.VarChar(255)
-  content String @db.VarChar(1400)
+  content String @db.VarChar(1000)
   createdAt DateTime @db.Timestamp() @map("created_at")
 
   @@map("posts")

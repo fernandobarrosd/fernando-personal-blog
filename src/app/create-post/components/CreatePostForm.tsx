@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import slug from "slug";
 import { createPostAction } from "../actions";
+import { useState } from "react";
 
 const createPostSchema = z.object({
     title: z.string(),
@@ -29,13 +30,16 @@ export function CreatePostForm() {
 
     const content = watch("content");
     const title = watch("title");
+    const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
 
     async function onSubmit(_: CreatePostSchema) {
-        await createPostAction({ 
+        const result = await createPostAction({ 
             title,
             content,
             slug: slug(title)
         });
+
+        setErrorMessage(result);
     }
     
     return (
@@ -43,15 +47,25 @@ export function CreatePostForm() {
         onSubmit={handleSubmit(onSubmit)}>
             <fieldset className="flex
             flex-col gap-4">
-                <input
-                {...register("title")}
+                <div>
+                    <input
+                    {...register("title")}
 
-                type="text"
-                placeholder="Titulo..."
-                className="text-3xl
-                text-white focus:outline-none
-                w-full"
-                autoFocus/>
+                    type="text"
+                    placeholder="Titulo..."
+                    className="text-3xl
+                    text-white focus:outline-none
+                    w-full"
+                    autoFocus/>
+
+                    { errorMessage && (
+                        <span className="text-red-400
+                        text-sm">
+                            { errorMessage }
+                        </span>
+                    ) }
+                </div>
+                
 
                 <textarea
                 {...register("content")}
