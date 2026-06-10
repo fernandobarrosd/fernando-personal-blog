@@ -78,7 +78,7 @@ export function CreatePostForm() {
                 rows={10}
                 placeholder="Post ..."/>
 
-                { content.length >= 1400 && (
+                { content.length >= 1000 && (
 
                     <span className="self-start ml-4
                     text-red-400 text-sm">
