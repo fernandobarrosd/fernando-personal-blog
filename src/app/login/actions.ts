@@ -6,6 +6,7 @@ import { cookies } from "next/headers";
 import z from "zod";
 import { env } from "@/env";
 import { IS_AUTHENTICATED_COOKIE } from "@/constants";
+import { setTimeout } from "node:timers/promises";
 
 const loginActionSchema = z.object({
     email: z.string().refine(email => email == env.NEXT_PUBLIC_ADMIN_EMAIL, { error: "Email is not admin" }),

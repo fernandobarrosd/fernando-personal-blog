@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import slug from "slug";
 import { createPostAction } from "../actions";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 
 const createPostSchema = z.object({
     title: z.string(),
@@ -31,15 +31,18 @@ export function CreatePostForm() {
     const content = watch("content");
     const title = watch("title");
     const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
+    const [ isLoading, startTransition ] = useTransition();
 
     async function onSubmit(_: CreatePostSchema) {
-        const result = await createPostAction({ 
-            title,
-            content,
-            slug: slug(title)
-        });
+        startTransition(async () => {
+            const result = await createPostAction({ 
+                title,
+                content,
+                slug: slug(title)
+            });
 
-        setErrorMessage(result);
+            setErrorMessage(result);
+        })
     }
     
     return (
@@ -91,7 +94,8 @@ export function CreatePostForm() {
             disabled:cursor-default"
             type="submit" 
             disabled={
-                !(title.length > 0 && content.length > 0)
+                !(title.length > 0 && content.length > 0) ||
+                isLoading
             }>
                 Publicar
             </Button>

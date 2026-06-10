@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import z from "zod";
 import { FormField } from "./FormField";
 import { executeLoginAction } from "../actions";
-import { useState } from "react";
+import { useActionState, useState, useTransition } from "react";
 import { Button } from "@/components/Button";
 
 const loginSchema = z.object({
@@ -21,14 +21,16 @@ export function LoginForm() {
     });
 
     const [ errorMessage, setErrorMessage ] = useState<string | null>(null);
+    const [ isLoading, startTransition ] = useTransition();
 
     async function onSubmit(loginSchema: LoginSchema) {
-        const errorMessage = await executeLoginAction(loginSchema);
-
-        setErrorMessage(errorMessage);
-        
+        startTransition(async () => {
+            const result = await executeLoginAction(loginSchema);
+            setErrorMessage(result);
+        });
     }
 
+    
     return (
         <form className="flex flex-col items-center mt-20"
         onSubmit={handleSubmit(onSubmit)}>
@@ -53,7 +55,11 @@ export function LoginForm() {
                     {errorMessage}
                 </span>
             ) }
-            <Button className="w-50 mt-10" type="submit">
+            <Button 
+            className="w-50 mt-10 disabled:bg-blue-900/50
+            disabled:cursor-default" 
+            type="submit"
+            disabled={isLoading}>
                 Entrar
             </Button>
         </form>

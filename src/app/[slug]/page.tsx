@@ -6,6 +6,7 @@ import { DeletePostDialog } from "./components/DeletePostDialog";
 import { cookies } from "next/headers";
 import { dateFormatter } from "@/utils/date-utils";
 import { IS_AUTHENTICATED_COOKIE } from "@/constants";
+import { setTimeout } from "node:timers/promises";
 
 
 type PostPageProps = {

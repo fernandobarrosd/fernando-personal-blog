@@ -3,6 +3,7 @@
 import { Button } from "@/components/Button";
 import { DeleteIcon } from "@/components/icons/DeleteIcon";
 import * as Dialog from "@radix-ui/react-dialog";
+import { useState, useTransition } from "react";
 
 type Post = {
     title: string;
@@ -15,8 +16,18 @@ type DeletePostDialogProps = {
 }
 
 export function DeletePostDialog({ post, onDeletePost } : DeletePostDialogProps) {
+    const [ isLoading, startTransition ] = useTransition();
+    const [ isOpen, setIsOpen ] = useState(false);
+
+    function handleDeletePost() {
+        startTransition(async () => {
+            await onDeletePost();
+            setIsOpen(false);
+        });
+    }
+
     return (
-        <Dialog.Root >
+        <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
             <Dialog.Trigger asChild>
                 <Button className="bg-red-500 p-1">
                     <DeleteIcon/>
@@ -41,13 +52,14 @@ export function DeletePostDialog({ post, onDeletePost } : DeletePostDialogProps)
                             </Dialog.Description>
                         </div>
                         <div className="flex gap-8 justify-center">
-                            <Dialog.Close asChild>
-                                <Button className="w-40
-                                bg-green-700"
-                                onClick={onDeletePost}>
+                            <Button className="w-40
+                                bg-green-700
+                                disabled:bg-green-700/50
+                                disabled:cursor-default"
+                                disabled={isLoading}
+                                onClick={handleDeletePost}>
                                     Sim
-                                </Button>
-                            </Dialog.Close>
+                            </Button>
                             <Dialog.Close asChild>
                                 <Button className="w-40
                                 bg-red-700">
