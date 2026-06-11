@@ -4,10 +4,11 @@ import { LogoutButton } from "./LogoutButton";
 import { LoginLink } from "./LoginLink";
 import { redirect } from "next/navigation";
 import { IS_AUTHENTICATED_COOKIE } from "@/constants";
+import { getAuthCookie } from "@/utils/auth-utils";
+
 
 export async function AuthenticationHeaderArea() {
-    const cookiesStore = await cookies();
-    const isAuthenticatedCookie = cookiesStore.get(IS_AUTHENTICATED_COOKIE);
+    const isAuthenticatedCookie = await getAuthCookie();
 
     async function logout() {
         "use server";

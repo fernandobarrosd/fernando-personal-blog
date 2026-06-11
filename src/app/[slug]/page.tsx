@@ -3,10 +3,8 @@ import { prismaClient } from "@/lib/prismaClient";
 import { notFound, redirect } from "next/navigation";
 import Image from "next/image";
 import { DeletePostDialog } from "./components/DeletePostDialog";
-import { cookies } from "next/headers";
 import { dateFormatter } from "@/utils/date-utils";
-import { IS_AUTHENTICATED_COOKIE } from "@/constants";
-import { setTimeout } from "node:timers/promises";
+import { getAuthCookie } from "@/utils/auth-utils";
 
 
 type PostPageProps = {
@@ -36,8 +34,7 @@ export async function getPostBySlug(slug: string) {
 export default async function PostPage({ params } : PostPageProps) {
     const { slug } = await params;
     const post = await getPostBySlug(slug);
-    const cookiesStore = await cookies();
-    const isAuthenticatedCookie = cookiesStore.get(IS_AUTHENTICATED_COOKIE);
+    const isAuthenticatedCookie = await getAuthCookie();
     
 
     if (!post) {

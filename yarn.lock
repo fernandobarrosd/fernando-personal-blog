@@ -1310,6 +1310,16 @@ lightningcss@1.32.0:
     lightningcss-win32-arm64-msvc "1.32.0"
     lightningcss-win32-x64-msvc "1.32.0"
 
+linkify-react@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/linkify-react/-/linkify-react-4.3.3.tgz#86e9382f1b85b6cec1502e7c46182599ec3c62a0"
+  integrity sha512-bMWuN1YJ3hyDyojk4hzUugecN2RsTuibKAQBplUT2o+3uK33THdRL2qD0Zf3ibCXuBLBCyOE6Uj/S/1cY48Ygw==
+
+linkifyjs@^4.3.3:
+  version "4.3.3"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.3.3.tgz#da08f0eeb4d89a24541d09591fbdcc211eb8fef0"
+  integrity sha512-P8aEP5U/D1/IlTY2OeYsErdwh9bGuLE30NcXtKEjgdHcahveQoQwM2yZNsioQHsWFz0P7KKudisbrzCgR0sDHg==
+
 long@^5.2.1:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/long/-/long-5.3.2.tgz#1d84463095999262d7d7b7f8bfd4a8cc55167f83"
