@@ -9,7 +9,12 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: "Fernando Personal Blog"
+  title: "Fernando Personal Blog",
+  openGraph: {
+    title: "Fernando Personal Blog - Home",
+    type: "website",
+    url: process.env.NEXT_PUBLIC_PRODUCTION_URL || "http://localhost:3000"
+  }
 };
 
 type RootLayoutProps = {
