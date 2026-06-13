@@ -6,7 +6,7 @@ export const metadata : Metadata = {
   openGraph: {
     title: "Fernando Personal Blog - Criar post",
     type: "website",
-    url: `${process.env.NEXT_PUBLIC_PRODUCTION_URL}/create-post` || "http://localhost:3000/create-post"
+    url: `${process.env.NEXT_PUBLIC_URL}/create-post`
   }
 }
 

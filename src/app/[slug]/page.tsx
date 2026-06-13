@@ -15,12 +15,15 @@ type PostPageProps = {
 export async function generateMetadata({ params } : PostPageProps) : Promise<Metadata> {
     const { slug } = await params;
     const post = await getPostBySlug(slug); 
+    const title = post ? `Fernando Personal Blog - ${post.title}` : "Fernando Personal Blog - Post não encontrado";
 
     return {
-        title: post ? `Fernando Personal Blog - ${post.title}` : "Fernando Personal Blog",
+        title: title,
         openGraph: {
-            title: post ? `Fernando Personal Blog - ${post.title}` : "Fernando Personal Blog - Post não encontrado",
-            type: "website"
+            title,
+            url: post ? `${process.env.NEXT_PUBLIC_URL}/${slug}` : null,
+            type: "website",
+            description: post?.content
         }
     }
 }
