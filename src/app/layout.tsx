@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Fernando Personal Blog - Home",
     type: "website",
-    url: process.env.NEXT_PUBLIC_PRODUCTION_URL || "http://localhost:3000"
+    url: process.env.NEXT_PUBLIC_PRODUCTION_URL || "http://localhost:3000/"
   }
 };
 
