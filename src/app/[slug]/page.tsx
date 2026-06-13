@@ -22,7 +22,6 @@ export async function generateMetadata({ params } : PostPageProps) : Promise<Met
         openGraph: {
             title,
             url: post ? `${process.env.NEXT_PUBLIC_URL}/${slug}` : null,
-            type: "website",
             description: post?.content
         }
     }

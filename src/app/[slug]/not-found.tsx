@@ -1,6 +1,3 @@
-import { Metadata } from "next"
-
-
 export default function PostNotFoundPage() {
     return (
         <main className="flex justify-center mt-10">
