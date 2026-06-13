@@ -5,10 +5,21 @@ import Image from "next/image";
 import { DeletePostDialog } from "./components/DeletePostDialog";
 import { dateFormatter } from "@/utils/date-utils";
 import { getAuthCookie } from "@/utils/auth-utils";
+import { Metadata } from "next";
 
 
 type PostPageProps = {
     params: Promise<{ slug: string }>
+}
+
+export async function generateMetadata({ params } : PostPageProps) : Promise<Metadata> {
+    const { slug } = await params;
+    const post = await getPostBySlug(slug); 
+
+    return {
+        title: post ? `Fernando Personal Blog - ${post.title}` : "Fernando Personal Blog",
+
+    }
 }
 
 export async function getPostBySlug(slug: string) {

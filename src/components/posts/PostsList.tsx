@@ -1,20 +1,12 @@
 import { prismaClient } from "@/lib/prismaClient";
 import { cacheLife, cacheTag } from "next/cache";
 import { PostCard } from "./PostCard";
-import { setTimeout } from "node:timers/promises";
 
 export async function getPosts() {
-  "use cache";
+  "use cache"
 
-  cacheLife({
-    revalidate: 5 * 60,
-    expire: 5 * 60
-  });
+  cacheLife("days");
   cacheTag("posts");
-
-  await setTimeout(8000, null);
-
-  console.log("posts");
 
 
   return await prismaClient.post.findMany({
